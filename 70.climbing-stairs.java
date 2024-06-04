@@ -21,11 +21,11 @@ class Solution {
             return 1;
         }
 
-        if (memo[i] != 0) {
-            return memo[i];
+        if (memo[n] != 0) {
+            return memo[n];
         }
 
-        return memo[i] = dfs(n - 1) + dfs(n - 2);
+        return memo[n] = dfs(n - 1, memo) + dfs(n - 2, memo);
     }
 }
 // @lc code=end
