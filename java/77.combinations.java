@@ -28,7 +28,8 @@ class Solution {
             result.add(new ArrayList<>(path));
             return ;
         }
-        for (int i = startIndex; i <= n; i++) {
+        //进行剪枝操作 当剩余元素不可能满足目标时 直接退出  (n - (k - path.size()) + 1)
+        for (int i = startIndex; i <= n - (k - path.size()) + 1; i++) {
             path.add(i);
             backtrack(n, k, i+1);
             path.remove(path.size() - 1);
