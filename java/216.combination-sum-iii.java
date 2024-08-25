@@ -19,21 +19,24 @@ class Solution {
     private List<Integer> path = new ArrayList<>();
 
     public List<List<Integer>> combinationSum3(int k, int n) {
-        backtrack(k, n, startIndex);
+        int sum = 0;
+        backtrack(k, n, startIndex, sum);
         return result;
     }
 
-    private void backtrack(int k, int n, int startIndex) {
+    private void backtrack(int k, int n, int startIndex, int sum) {
 
-        for (int i = startIndex; i <= 10; i++) {
+        for (int i = startIndex; i <= 9 - (k - path.size()) + 1; i++) {
             if (path.size() == k) {
-                if (path.stream().mapToInt(Integer::intValue).sum() == n) {
+                if (sum == n) {
                     result.add(new ArrayList<>(path));
                 }
                 return;
             }
+            sum += i;
             path.add(i);
-            backtrack(k, n, i+1);
+            backtrack(k, n, i+1, sum);
+            sum -= i;
             path.remove(path.size() - 1);
         }
     }
