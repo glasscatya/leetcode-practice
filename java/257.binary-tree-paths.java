@@ -46,7 +46,7 @@ class Solution {
             result.add(IntToString(paths));
             return ;
         }
-        //回溯，走完当前路径后，利用递归弹出当前路径。
+        //回溯，走完当前路径后，利用递归弹出当前路径
         if (root.left != null) {
             backtrack(root.left, paths);
             paths.remove(paths.size() - 1);
