@@ -13,8 +13,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.tree.TreeNode;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -31,40 +29,40 @@ import javax.swing.tree.TreeNode;
  * }
  */
 class Solution {
+    private List<Integer> path = new ArrayList<>();
     private List<String> result = new ArrayList<>();
-    private List<Integer> paths = new ArrayList<>();
+
     public List<String> binaryTreePaths(TreeNode root) {
-        backtrack(root, paths);
+        // 前序遍历
+        // 终止条件
+        if(root == null) return result;
+        //中
+        path.add(root.val);
+        if (root.left == null && root.right == null) {
+            result.add(toString(path));
+            return result;
+        }
+        //左
+        if (root.left != null) {
+            binaryTreePaths(root.left);
+            path.remove(path.size() - 1);
+        }
+        //右
+        if (root.right != null) {
+            binaryTreePaths(root.right);
+            path.remove(path.size() - 1);
+        }
+
         return result;
     }
-
-    public void backtrack(TreeNode root, List<Integer> paths) {
-        //中
-        paths.add(root.val);
-        //终止条件
-        if (root.left == null && root.right == null) {
-            result.add(IntToString(paths));
-            return ;
+    // 拼接成目标字符串格式
+    public String toString(List<Integer> path) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(path.get(0));
+        for (int i = 1; i < path.size(); i++) {
+                sb.append("->");
+                sb.append(path.get(i));
         }
-        //回溯，走完当前路径后，利用递归弹出当前路径
-        if (root.left != null) {
-            backtrack(root.left, paths);
-            paths.remove(paths.size() - 1);
-        }
-
-        if (root.right != null) {
-            backtrack(root.right, paths);
-            paths.remove(paths.size() - 1);
-        }
-
-    }
-    //IntToString方法将paths转换成result所需要的格式
-    public String IntToString(List<Integer> paths) {
-        StringBuilder sb = new StringBuilder();// StringBuilder用来拼接字符串，速度更快
-        for (int i = 0; i < paths.size() - 1; i++) {
-            sb.append(paths.get(i)).append("->");
-        }
-        sb.append(paths.get(paths.size() - 1));// 记录最后一个节点
 
         return sb.toString();
     }
