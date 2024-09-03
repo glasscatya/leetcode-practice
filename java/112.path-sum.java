@@ -26,8 +26,10 @@
  */
 class Solution {
     public boolean isSum = false;
+
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        if(root == null) return isSum;
+        if (root == null)
+            return isSum;
         backtrack(root, targetSum);
         return isSum;
     }
@@ -39,7 +41,7 @@ class Solution {
         if (node.left == null && node.right == null) {
             if (targetSum == 0)
                 isSum = true;
-            return ;
+            return;
         }
         // 左
         if (node.left != null) {
