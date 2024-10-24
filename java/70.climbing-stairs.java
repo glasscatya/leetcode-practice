@@ -12,20 +12,19 @@
 // @lc code=start
 class Solution {
     public int climbStairs(int n) {
-        int[] memo = new int[n + 1];
-        return dfs(n, memo);
-    }
-
-    private int dfs(int n, int[] memo) {
-        if (n <= 1) {
-            return 1;
+        //dp[2]有意义
+        if(n <= 1) return n; 
+        //dp数组初始化
+        int[] dp = new int[n + 1];
+        //下标含义
+        dp[1] = 1;
+        dp[2] = 2;
+        //递推公式
+        //遍历顺序: 从前向后
+        for(int i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
-
-        if (memo[n] != 0) {
-            return memo[n];
-        }
-
-        return memo[n] = dfs(n - 1, memo) + dfs(n - 2, memo);
+        return dp[n];
     }
 }
 // @lc code=end
