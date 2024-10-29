@@ -10,27 +10,25 @@
 // @lcpr-template-end
 // @lc code=start
 
-import java.util.Arrays;
-
 class Solution {
     public boolean canPartition(int[] nums) {
-        if(nums == null || nums.length == 0) 
+        // 不存在返回false
+        if (nums == null || nums.length == 0)
             return false;
-        
-        int n = nums.length;
         int sum = 0;
-        for(int num : nums) {
+        for (int num : nums)
             sum += num;
-        }
-        if(sum % 2 != 0) return false;
-        int target = sum / 2;
+        // 无法被整除 返回false
+        int target = sum >> 1;
+        if (target << 1 != sum)
+            return false;
         int[] dp = new int[target + 1];
-        for(int i = 0; i < n; i++) {
-            for(int j = target; j >= nums[i]; j--) {
-                //物品 i 的重量是 nums[i]，其价值也是 nums[i]
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = target; j >= nums[i]; j--) {
                 dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
             }
-            if(dp[target] == target)
+            if (dp[target] == target)
                 return true;
         }
         return dp[target] == target;
