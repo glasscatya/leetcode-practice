@@ -57,19 +57,19 @@ class Solution {
                 break;
             }
         }
-        // 中序左边
+        // 中序左边 [inorderBegin, delimiterIndex)
         int inorderLeftBegin = inorderBegin;
         int inorderLeftEnd = delimiterIndex;
-        // 中序右边
+        // 中序右边 [delimiterIndex + 1, inorderEnd]
         int inorderRightBegin = delimiterIndex + 1;
         int inorderRightEnd = inorderEnd;
 
         // 再切割后序
         // 后序左边 左闭右闭 [ , )
         int postorderLeftBegin = postorderBegin;
-        // 后序左边的终点 = 后序起点 + 中序左边的距离
+        // 后序左边的终点 = 后序起点 + 中序左边的距离 
         int postorderLeftEnd = postorderBegin + (delimiterIndex - inorderBegin);
-        // 后序右边
+        // 后序右边  []  左闭右闭
         int postorderRightBegin = postorderLeftEnd;
         int postorderRightEnd = postorderEnd - 1;
 
