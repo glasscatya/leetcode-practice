@@ -7,9 +7,12 @@
 
 
 // @lcpr-template-start
+import java.util.*;
 
 // @lcpr-template-end
 // @lc code=start
+
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -26,13 +29,34 @@
  * }
  */
 class Solution {  
+    private int ans;
+    private List<Integer> path = new ArrayList<>();
     public int sumNumbers(TreeNode root) {
-        int sum = root.val;
-        //终止条件
-        // 
-        if (root.left == null & root.right == null) {
-            return sum;
+        if (root == null) return 0;
+        //叶子节点
+        path.add(root.val);
+        if (root.left == null && root.right == null) {
+            ans += getNum(path);
         }
+        //左 + 回溯
+        if (root.left != null) {
+            sumNumbers(root.left);
+            path.remove(path.size() - 1);
+        }
+
+        if (root.right != null) {
+            sumNumbers(root.right);
+            path.remove(path.size() - 1);
+        }
+        return ans;
+    }
+
+    private int getNum(List<Integer> path) {
+        int target = 0;
+        for (Integer integer : path) {
+            target = target * 10 + integer;
+        }
+        return target;
     }
 }
 // @lc code=end
